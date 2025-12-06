@@ -1,6 +1,8 @@
-# Waste Collection Schedule Display
+# Bin collections on a cheap yellow display 
 
-A project for JC2432W328 variant of Cheap Yellow Display that shows upcoming waste collection schedules on a 240x320 ST7789 display using LittleVGL for the graphical interface.
+This project is for the JC2432W328 variant of Cheap Yellow Display (which is £14.99 on aliexpress). It shows upcoming bin collections from a txt file fetched from a URL on my internal network. It's architected in this way to reduce the complexity on the ESP32 - scraping the data from the mid-sussex district website and formatting it into the text file is done by a python script which runs once a week by a Linux computer on my network.
+
+Note: I would not recommend the JC2432W328 CYD board. The documentation is terrible and the code examples don't work. I eventually [found some code on github](https://github.com/pay191/DIY_Malls-JC2432W328C_Tests) that helped get me going. 
 
 ## Features
 
@@ -17,9 +19,7 @@ A project for JC2432W328 variant of Cheap Yellow Display that shows upcoming was
 
 ## Hardware Requirements
 
-- ESP32 development board
-- 240x320 ST7789 TFT display
-- CST820 capacitive touch controller (optional, for touch input)
+- [JC2432W328 Cheap Yellow Display](https://www.aliexpress.com/item/1005007865384573.html?spm=a2g0o.order_list.order_list_main.10.4ed318022S6s82)
 - Power supply (5V recommended)
 
 ### Pin Connections
@@ -47,38 +47,9 @@ A project for JC2432W328 variant of Cheap Yellow Display that shows upcoming was
   - HTTPClient
   - Preferences
 
-## Installation
-
-1. **Clone or download the project files**
-   ```
-   git clone [repository-url]
-   ```
-
-2. **Install required libraries**
-   - Install via Arduino Library Manager:
-     - LovyanGFX by lovyan03
-     - lvgl by LVGL
-     - WiFi (included with ESP32)
-     - HTTPClient (included with ESP32)
-     - Preferences (included with ESP32)
-
-3. **Configure the project**
-   - Update WiFi credentials in the sketch or use the default:
-     - SSID: `skynet`
-     - Password: `ukstokes.com`
-   - Update the server URL in `fetchCollectionsData()` function if needed:
-     ```cpp
-     String url = "http://192.168.1.131:9090/collections.txt";
-     ```
-
-4. **Upload to ESP32**
-   - Select ESP32 board in Arduino IDE
-   - Set correct COM port
-   - Upload the sketch
-
 ## Data Format
 
-The project expects a text file served at the configured URL like the included collections.txt
+The project expects a text file served at the configured URL, like the included collections.txt
 
 ## Configuration
 
@@ -108,36 +79,12 @@ The device checks the refresh condition every 30 seconds (to avoid excessive CPU
 
 ## Memory Optimization
 
-This project is optimized for ESP32 memory constraints:
+This project is optimized for ESP32 memory constraints but still uses 99% of the ESP32 memory, therefore isn't very extendable without refactoring or removing bits.
 - Limited LittleVGL features enabled
 - Small display buffer (partial rendering)
 - No unnecessary widgets or animations
 - String handling optimized to avoid fragmentation
 
-## Troubleshooting
-
-### Common Issues
-
-1. **WiFi Connection Failed**
-   - Check SSID and password
-   - Verify WiFi signal strength
-   - Check if the network requires portal authentication
-
-2. **No Data Displayed**
-   - Verify server URL is accessible from the ESP32
-   - Check serial monitor for HTTP error codes
-   - Ensure data file format is correct
-
-3. **Display Not Working**
-   - Verify pin connections
-   - Check power supply (display may need 5V)
-   - Verify backlight pin (GPIO 27) is HIGH
-
-4. **Memory Issues**
-   - Reduce `LV_MEM_SIZE` in lv_conf.h if experiencing crashes
-   - Disable additional features if needed
-
-### Serial Monitor Output
 Enable Serial monitor at 115200 baud for debugging:
 - Connection status
 - HTTP request results
@@ -155,9 +102,6 @@ if (strstr(collections[i].type, "Food Waste") != NULL) {
   type_color = lv_color_hex(0x90EE90); // light green
 }
 ```
-
-### Adding New Collection Types
-Add additional `else if` conditions for new collection types with desired colors.
 
 ### Changing Refresh Interval
 Modify `REFRESH_INTERVAL` in the main sketch:
