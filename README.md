@@ -4,6 +4,8 @@ This project is for the JC2432W328 variant of Cheap Yellow Display (which is £1
 
 Note: I would not recommend the JC2432W328 CYD board. The documentation is terrible and the code examples don't work. I eventually [found some code on github](https://github.com/pay191/DIY_Malls-JC2432W328C_Tests) that helped get me going. 
 
+![Photo](cyd-bin-collections.png)
+
 ## Features
 
 - **WiFi Connectivity**: Connects to WiFi networks and saves credentials for automatic reconnection
