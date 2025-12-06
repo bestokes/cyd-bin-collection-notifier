@@ -1,0 +1,9 @@
+Date Collection Type
+10/12/2025 Food Waste
+10/12/2025 Garden Waste
+17/12/2025 Food Waste
+17/12/2025 Recycling
+24/12/2025 Food Waste
+24/12/2025 General Waste
+02/01/2026 Food Waste
+02/01/2026 Recycling
