@@ -321,8 +321,8 @@ void setup() {
   delay(100);
 
   prefs.begin("wifi", true);
-    String ssid = prefs.getString("ssid", "skynet");
-    String pass = prefs.getString("pass", "ukstokes.com");
+    String ssid = prefs.getString("ssid", "xxxxxx");
+    String pass = prefs.getString("pass", "xxxxxx");
     prefs.end();
 
     start_wifi_connection(ssid.c_str(), pass.c_str());
